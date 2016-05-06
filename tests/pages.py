@@ -139,7 +139,8 @@ class Slider(Component):
     ICON_PREV = 'icon_control_previous'
     BOX_NEXT = 'viewbox__control_next'
     BOX_PREV = 'viewbox__control_previous'
-    CURRENT_NUM = '//span[@class="viewbox__current"]'
+    ACTIVE_SLIDE = '//div[contains(@class, "viewbox__slide_active")]'
+    CURRENT_NUM = '//div[contains(@class, "viewbox__slide_active")]//span[@class="viewbox__current"]'
     TOTAL_NUM = 'viewbox__total'
     PREVIEW_IMG = '//img[@class="viewbox__preview-pic"]'
 
@@ -186,7 +187,7 @@ class Slider(Component):
 
     def get_page_num_from_browser(self):
         current_num = self.driver.find_element_by_xpath(self.CURRENT_NUM)
-        return int(current_num.text)
+        return int(current_num.get_attribute("innerText"))
 
     def get_max_page_num(self):
         max_num = self.driver.find_element_by_class_name(self.TOTAL_NUM)

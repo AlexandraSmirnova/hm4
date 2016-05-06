@@ -9,7 +9,7 @@ from tests.slider_test import SliderTestCase
 
 if __name__ == '__main__':
     suite = unittest.TestSuite((
-        # unittest.makeSuite(FavouritesTestCase),
+        unittest.makeSuite(FavouritesTestCase),
         unittest.makeSuite(SliderTestCase),
     ))
     result = unittest.TextTestRunner().run(suite)

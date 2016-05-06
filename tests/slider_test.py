@@ -50,7 +50,7 @@ class SliderTestCase(unittest.TestCase):
         self.assertEqual(slider.get_page_num(), slider.get_page_num_from_browser())
         all_photos_num = slider.get_max_page_num()
         slider.go_to_slide(all_photos_num - 1)
-        #Error! self.assertEqual(slider.get_page_num(), slider.get_page_num_from_browser())
+        self.assertEqual(slider.get_page_num(), slider.get_page_num_from_browser())
 
     def testSliderClose(self):
         slider = self.getSlider()
@@ -74,8 +74,9 @@ class SliderTestCase(unittest.TestCase):
         # проверяем, что можно перейти на интересующий слайд с помощью картинок-превью
         slider.go_to_slide(0)
         self.assertEqual(slider.get_page_num_from_browser(), 1)
-        slider.click_next(2)
-        # Error! self.assertEqual(slider.get_page_num_from_browser(), 3)
+        all_photos_num = slider.get_max_page_num()
+        slider.go_to_slide(all_photos_num - 1)
+        self.assertEqual(slider.get_page_num(), slider.get_page_num_from_browser())
 
     def testSliderShare(self):
         slider = self.getSlider()
