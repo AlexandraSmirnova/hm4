@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import urlparse
 
+from selenium.webdriver import ActionChains
+
 
 class Page(object):
     BASE_URL = 'http://msk.realty.mail.ru/'
@@ -132,7 +134,7 @@ class AuthForm(Component):
 class Slider(Component):
     OPEN_CLASS = 'photo__action'
     CLOSE_CLASS = 'viewbox__close'
-    CLOSE_AREA = 'js-popup_close'
+    CLOSE_AREA = 'viewbox__cell'
     ICON_NEXT = 'icon_control_next'
     ICON_PREV = 'icon_control_previous'
     BOX_NEXT = 'viewbox__control_next'
@@ -150,11 +152,14 @@ class Slider(Component):
         slider.click()
         self.page_num = 1
 
-    def close_slider(self, by_area = 0):
-        btn_close = self.driver.find_element_by_class_name(self.CLOSE_CLASS)
+    def close_slider(self, by_area=0):
         if by_area:
             btn_close = self.driver.find_element_by_class_name(self.CLOSE_AREA)
-        btn_close.click()
+            actions = ActionChains(self.driver)
+            actions.move_to_element_with_offset(btn_close, 0, 0).click().perform()
+        else:
+            btn_close = self.driver.find_element_by_class_name(self.CLOSE_CLASS)
+            btn_close.click()
         self.page_num = 0
 
     def click_next(self, method=0):
